@@ -7,6 +7,7 @@ import GSAP from 'gsap';
 import { createLogger } from './utils/logger';
 
 import { PersonaRing } from './ring';
+import { PersonaArm } from './arm';
 import { DefaultInternalSettings, DefaultSettings, PersonaSettings, PersonaInternalSettings } from './persona.settings';
 import { createStates, States, PersonaListeningState, StateRunners, StateRunnerArgs, ContinualStates, ContinualStatesTypes } from './persona.states';
 import { getRingMoodModifiers, getMoodModifiers, MoodIntensityMap } from './persona.mood';
@@ -110,6 +111,11 @@ export class PersonaCore implements IPersonaCore {
         ring.data.originalColor = originalColor;
         ring.data.hsl = originalColor;
       }
+    }
+
+    for (let i = 1; i <= 12; i++) {
+      const arm = new PersonaArm(i, this._settings);
+      this._group.add(arm.theGroup);
     }
 
     // this._computeColors();
