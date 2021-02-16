@@ -1,3 +1,4 @@
+import { PersonaArmData } from './arm.data';
 import { AudioTracks } from './audio';
 import { States } from './persona.states';
 import { PersonaRingData } from './ring.data';
@@ -34,6 +35,10 @@ export namespace IResourcesProvider {
 
 export interface IPersonaRing {
   readonly data: PersonaRingData;
+}
+
+export interface IPersonaArm {
+  readonly data: PersonaArmData;
 }
 
 export type PersonCoreAnimationData = {
