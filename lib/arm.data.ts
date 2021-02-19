@@ -3,10 +3,10 @@ import { Color as ChromaColor } from 'chroma-js';
 import { PersonaConfig } from './persona.settings';
 
 export class PersonaArmData {
-  armBaseRadius: number = 0.18;
-  armTipRadius: number = 0.04;
-  armLength: number = 2.46;
-  armRectangleLength: number = 2.4;
+  armBaseRadius: number = 0.22;
+  armTipRadius: number = 0.1;
+  armLength: number = 2.4;
+  armRectangleLength: number = 2.28;
 
   // originalColor: THREE.Vector3;
   // hsl: THREE.Vector3;
