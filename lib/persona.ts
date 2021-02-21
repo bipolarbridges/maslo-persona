@@ -67,6 +67,8 @@ export class PersonaCore implements IPersonaCore {
 
   private colorHSL: Chroma.Color;
 
+  private armsEnabled: boolean;
+
   constructor(scene: THREE.Scene, settings: Partial<PersonaSettings> = null) {
     this._settings = {
       ...DefaultSettings,
@@ -111,11 +113,6 @@ export class PersonaCore implements IPersonaCore {
         ring.data.originalColor = originalColor;
         ring.data.hsl = originalColor;
       }
-    }
-
-    for (let i = 1; i <= 12; i++) {
-      const arm = new PersonaArm(i, this._settings);
-      this._group.add(arm.theGroup);
     }
 
     // this._computeColors();
@@ -205,6 +202,13 @@ export class PersonaCore implements IPersonaCore {
     GSAP.killTweensOf(this._view.position);
     const pos = v.position || { x: 0, y: 0 };
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
+
+    if (!this.armsEnabled && view.armsEnabled) {
+      for (let i = 1; i <= 12; i++) {
+        const arm = new PersonaArm(i, this._settings);
+        this._group.add(arm.theGroup);
+      }
+    }
   }
 
   step() {
