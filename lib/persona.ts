@@ -204,12 +204,16 @@ export class PersonaCore implements IPersonaCore {
     const pos = v.position || { x: 0, y: 0 };
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
 
-    if (!this.armsEnabled && view.armsEnabled) {
+    if (view.armsEnabled && !this.armsEnabled) {
       for (let i = 1; i <= 12; i++) {
         const arm = new PersonaArm(i, this._settings);
         this._arms.add(arm.theGroup);
       }
       this._group.add(this._arms);
+      this.armsEnabled = true;
+    } else if (view.armsEnabled && this.armsEnabled) {
+      this._group.remove(this._arms);
+      this.armsEnabled = false;
     }
   }
 
