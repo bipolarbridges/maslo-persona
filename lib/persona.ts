@@ -55,6 +55,7 @@ export class PersonaCore implements IPersonaCore {
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
+  private readonly _arms = new THREE.Object3D();
 
   private readonly _rings: PersonaRing[];
   private readonly _states: StateRunners;
@@ -206,8 +207,9 @@ export class PersonaCore implements IPersonaCore {
     if (!this.armsEnabled && view.armsEnabled) {
       for (let i = 1; i <= 12; i++) {
         const arm = new PersonaArm(i, this._settings);
-        this._group.add(arm.theGroup);
+        this._arms.add(arm.theGroup);
       }
+      this._group.add(this._arms);
     }
   }
 
