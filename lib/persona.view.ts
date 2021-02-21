@@ -22,7 +22,8 @@ export type PersonaViewState<TPosType = number> = {
   },
 
   debugName?: string,
-  armsEnabled: boolean,
+  login?: boolean,
+  logout?: boolean,
 };
 
 export namespace PersonaViewState {
@@ -33,7 +34,6 @@ export namespace PersonaViewState {
       scale: 1,
       rotation: 0,
       transparency: 0,
-      armsEnabled: false,
     };
   }
 }
