@@ -26,8 +26,11 @@ export const DefaultSettings: PersonaSettings = {
     '#DCFFFF',
   ],
   armColors: [
-    '#E7E7E7',
+    '#9E9E9E',
     '#CACACA',
+    '#DCDCDC',
+    '#DBDBDB',
+    '#CACACA', // arm at ripple
     '#AEAEAE',
     '#9E9E9E',
     '#848484',
@@ -35,9 +38,6 @@ export const DefaultSettings: PersonaSettings = {
     '#646464',
     '#696969',
     '#848484',
-    '#9E9E9E',
-    '#CACACA',
-    '#DCDCDC',
   ],
   audio: {
     play() { /* do nothing */ },
