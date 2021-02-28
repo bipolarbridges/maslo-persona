@@ -14,4 +14,5 @@ void main() {
   color.a = vColor.a * opacity;
   if( vMat == 1.0 ) color.a *= 0.5 + nt.r * 0.5;
   gl_FragColor = color;
+  if(id == 0.0) gl_FragColor = vec4(202.0/255.0, 202.0/255.0, 202.0/255.0, 1.0);
 }
