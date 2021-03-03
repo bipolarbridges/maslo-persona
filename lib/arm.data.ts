@@ -3,7 +3,11 @@ import { Color as ChromaColor } from 'chroma-js';
 import { PersonaConfig } from './persona.settings';
 
 export class PersonaArmData {
-  armBaseRadius: number = 0.22;
+  armBaseRadius: number = 0.3;
+  armScoopCurveX: number = 0.14;
+  armScoopCurveY: number = 1;
+  armScoopEndX: number = 0.14;
+  armScoopEndY: number = 1.2;
   armTipRadius: number = 0.1;
   armLength: number = 2.4;
   armRectangleLength: number = 2.28;

@@ -11,9 +11,11 @@ export class ArmGeometry {
 
   constructor(readonly data: PersonaArmData) {
     this.geoShape.moveTo( -data.armBaseRadius, 0 );
+    this.geoShape.quadraticCurveTo(-data.armScoopCurveX, data.armScoopCurveY, -data.armScoopEndX, data.armScoopEndY);
     this.geoShape.lineTo(-data.armTipRadius, data.armRectangleLength);
     this.geoShape.quadraticCurveTo(0, data.armLength, data.armTipRadius, data.armRectangleLength);
-    this.geoShape.lineTo(data.armBaseRadius, 0);
+    this.geoShape.lineTo(data.armScoopEndX, data.armScoopEndY);
+    this.geoShape.quadraticCurveTo(data.armScoopCurveX, data.armScoopCurveY, data.armBaseRadius, 0)
     this.geoShape.lineTo(-data.armBaseRadius,0);
     this.geoData = new THREE.ShapeGeometry(this.geoShape);
   }
