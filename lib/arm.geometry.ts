@@ -16,29 +16,6 @@ export class ArmGeometry {
     this.geoShape.lineTo(data.armBaseRadius, 0);
     this.geoShape.lineTo(-data.armBaseRadius,0);
     this.geoData = new THREE.ShapeGeometry(this.geoShape);
-
-    // ARM SHAPE - archive
-    // if (this.data.id === 2) {
-    //   this.geoShape.moveTo( 0, 0.18 );
-    //   this.geoShape.lineTo(2.4,0.04);
-    //   this.geoShape.quadraticCurveTo(2.46, 0, 2.4, -0.04)
-    //   this.geoShape.lineTo(0, -0.18);
-    //   this.geoShape.lineTo(0,0.18);
-    // } else if (this.data.id === 5) {
-    //   this.geoShape.moveTo( 0.18, 0 );
-    //   this.geoShape.lineTo(0.04,-2.4);
-    //   this.geoShape.quadraticCurveTo(0, -2.46, -0.04, -2.4)
-    //   this.geoShape.lineTo(-0.18, 0);
-    //   this.geoShape.lineTo(0.18,0);
-    // } else if (this.data.id === 6) {
-
-    // } else if (this.data.id === 8) {
-    //   this.geoShape.moveTo( 0, -0.18 );
-    //   this.geoShape.lineTo(-2.4,-0.04);
-    //   this.geoShape.quadraticCurveTo(-2.46, 0, -2.4, 0.04)
-    //   this.geoShape.lineTo(0, 0.18);
-    //   this.geoShape.lineTo(0,-0.18);
-   // }
   }
 
     /*
