@@ -42,29 +42,7 @@ export class PersonaArm implements IPersonaArm {
 
   get theGroup() { return this.mesh; }
 
-  step(time: number, prevRing: PersonaArm) {
-    // this._geometry.step(time, prevRing && prevRing._geometry);
-    // this.rotationGroup.rotation.z = this.data.theta * Math.PI * 2;
-    // this.rotationGroup.scale.set(this.data.scale.x + this.data.scaleInc.x, this.data.scale.y + this.data.scaleInc.y, 1);
-    // this.translationGroup.position.set(this.data.position.x, this.data.position.y, this.data.position.z);
-    // this._material.uniforms.opacity.value = this.data.opacity;
+  step(time: number) {
+    this._geometry.step(time);
   }
-
-  // activateDebbugRendering(active: boolean) {
-  //   if (!active) {
-  //     this.mesh.material = this._originalMaterial;
-  //     return;
-  //   }
-
-  //   if (!this._debugMaterial) {
-  //     this._debugMaterial = new THREE.MeshBasicMaterial({
-  //       wireframe: true,
-  //       color: '0xffffff',
-  //       opacity: 0.5,
-  //       transparent: true,
-  //     });
-  //   }
-
-  //   this.mesh.material = this._debugMaterial;
-  // }
 }

@@ -55,9 +55,10 @@ export class PersonaCore implements IPersonaCore {
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
-  private readonly _arms = new THREE.Object3D();
+  private readonly _armsGroup = new THREE.Object3D();
 
   private readonly _rings: PersonaRing[];
+  private readonly _arms: PersonaArm[];
   private readonly _states: StateRunners;
 
   private _moodDirty = false;
@@ -206,15 +207,17 @@ export class PersonaCore implements IPersonaCore {
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
 
     if (view.login) {
+      this._arms = [];
       for (let i = 1; i <= 12; i++) {
         const arm = new PersonaArm(i, this._settings);
-        this._arms.add(arm.theGroup);
+        this._armsGroup.add(arm.theGroup);
+        this._arms.push(arm);
       }
-      this._group.add(this._arms);
+      this._group.add(this._armsGroup);
       this.login = true;
       this.logout = false;
     } else if (view.logout) {
-      this._group.remove(this._arms);
+      this._group.remove(this._armsGroup);
       this.logout = true;
       this.login = false;
     }
@@ -262,6 +265,13 @@ export class PersonaCore implements IPersonaCore {
       ring.data.opacity = opacity;
       const prevRing = (i > 0 && this._rings[i - 1]) || null;
       ring.step(this._data.time, prevRing);
+    }
+
+    if (this.login && !this.logout) {
+      for (let i = 0; i < this._arms.length; i++) {
+        const arm = this._arms[i];
+        arm.step(this._data.time);
+      }
     }
   }
 

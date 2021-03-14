@@ -18,4 +18,11 @@ export class ArmGeometry {
     this.geoShape.lineTo(-data.armBaseRadius,0);
     this.geoData = new THREE.ShapeGeometry(this.geoShape);
   }
+
+  step(time: number) {
+    if (Math.floor(time%5) === 0) {
+      // this.geoData.rotateZ(0.02);
+    }
+  }
+
 }
