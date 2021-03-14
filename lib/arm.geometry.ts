@@ -11,7 +11,7 @@ export class ArmGeometry {
     this.geoShape.moveTo(-data.armBaseRadius, data.armBaseLength);
     this.geoShape.quadraticCurveTo(-data.armScoopCurveX, data.armScoopCurveY, -data.armScoopEndX, data.armScoopEndY);
     this.geoShape.lineTo(-data.armTipRadius, data.armRectangleLength);
-    this.geoShape.quadraticCurveTo(0, data.armLength, data.armTipRadius, data.armRectangleLength);
+    this.geoShape.bezierCurveTo(-data.armTipControlPointX, data.armTipControlPointY, data.armTipControlPointX, data.armTipControlPointY, data.armTipRadius, data.armRectangleLength);
     this.geoShape.lineTo(data.armScoopEndX, data.armScoopEndY);
     this.geoShape.quadraticCurveTo(data.armScoopCurveX, data.armScoopCurveY, data.armBaseRadius, data.armBaseLength);
     this.geoShape.moveTo(data.armBaseRadius, 0);
