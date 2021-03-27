@@ -15,15 +15,10 @@ export class PersonaArm implements IPersonaArm {
   private readonly _originalMaterial: THREE.MeshBasicMaterial;
   private readonly mesh: THREE.Mesh;
 
-  // private readonly translationGroup: THREE.Object3D;
-  // private readonly rotationGroup: THREE.Object3D;
-
-  // private _debugMaterial: THREE.MeshBasicMaterial;
-
-  constructor(id: number, config: PersonaConfig) {
+  constructor(id: number, config: PersonaConfig, mag: number) {
     this.data = new PersonaArmData(id, config);
 
-    this._geometry = new ArmGeometry(this.data);
+    this._geometry = new ArmGeometry(this.data, mag);
     this._material = new THREE.MeshBasicMaterial( { color: config.armColors[id] });
     this._originalMaterial = this._material;
 
@@ -32,12 +27,6 @@ export class PersonaArm implements IPersonaArm {
       const multiplier: number = (id - 1) * 30;
       this.mesh.rotateZ(Math.PI/180*multiplier);
     }
-
-    // this.translationGroup = new THREE.Object3D();
-    // this.rotationGroup = new THREE.Object3D();
-
-    // this.rotationGroup.add(this.translationGroup);
-    // this.translationGroup.add(this.mesh);
   }
 
   get theGroup() { return this.mesh; }

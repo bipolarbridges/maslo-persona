@@ -208,8 +208,10 @@ export class PersonaCore implements IPersonaCore {
 
     if (view.login) {
       this._arms = [];
+      const domains: any[] = ["physical","sleep","mood","cognition","leisure","relationships","spiritual","money","home","self-esteem","independence","identity"];
       for (let i = 1; i <= 12; i++) {
-        const arm = new PersonaArm(i, this._settings);
+        let domain: string = domains[i-1];
+        const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
       }
