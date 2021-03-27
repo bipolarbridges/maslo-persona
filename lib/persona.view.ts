@@ -25,18 +25,7 @@ export type PersonaViewState<TPosType = number> = {
   login?: boolean,
   logout?: boolean,
   armMagnitudes?: {
-    physical: number,
-    sleep: number,
-    mood: number,
-    cognition: number,
-    leisure: number,
-    relationships: number,
-    spiritual: number,
-    money: number,
-    home: number,
-    selfEsteem: number,
-    independence: number,
-    identity: number
+    [dom: string]: number
   }
 };
 
