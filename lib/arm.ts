@@ -14,9 +14,11 @@ export class PersonaArm implements IPersonaArm {
   private readonly _material: THREE.MeshBasicMaterial;
   private readonly _originalMaterial: THREE.MeshBasicMaterial;
   private readonly mesh: THREE.Mesh;
+  private _mag: number;
 
   constructor(id: number, config: PersonaConfig, mag: number) {
     this.data = new PersonaArmData(id, config);
+    this._mag = mag;
 
     this._geometry = new ArmGeometry(this.data, mag);
     this._material = new THREE.MeshBasicMaterial( { color: config.armColors[id] });
@@ -30,6 +32,11 @@ export class PersonaArm implements IPersonaArm {
   }
 
   get theGroup() { return this.mesh; }
+
+  updateMag(newMag: number) {
+    this._geometry.updateMag(newMag, this._mag);
+    this._mag = newMag;
+  }
 
   step(time: number) {
     this._geometry.step(time);

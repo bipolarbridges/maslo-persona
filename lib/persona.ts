@@ -53,6 +53,7 @@ export class PersonaCore implements IPersonaCore {
   };
 
   private readonly _view: PersonaViewState = PersonaViewState.createEmptyViewState();
+  private _qolMags: { [dom: string]: number } = null;
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
@@ -142,7 +143,6 @@ export class PersonaCore implements IPersonaCore {
 
   /** Returns current Persona state. Observable via `mobx's autorun`. */
   get state() { return this._state; }
-  get mood() { return this._mood; }
 
   get rotation() { return this._data.rotation; }
   set rotation(value) { this._data.rotation = value; }
@@ -209,8 +209,9 @@ export class PersonaCore implements IPersonaCore {
 
     if (view.login) {
       this._arms = [];
-      for (let i = 1; i <= 12; i++) {
+      for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1].toLowerCase();
+        logger.log(domain + ":", view.armMagnitudes[domain]);
         const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
@@ -225,8 +226,20 @@ export class PersonaCore implements IPersonaCore {
     }
   }
 
-  updateDomainMags(qolMags) {
-    logger.log("updating mags");
+  updateDomainMags(qolMags: any) {
+    if (this._qolMags === null) {
+      for (let arm of this._arms) {
+        arm.updateMag(qolMags[Domains[0].toLowerCase()]);
+      }
+    }
+
+    // for (let i = 1; i <= Domains.length; i++) {
+    //   let domain: string = Domains[i-1].toLowerCase();
+    //   if (this._qolMags.domain !== qolMags.domain) {
+    //     this._arms[i].updateMag(qolMags.domain);
+    //   }
+    // }
+    this._qolMags = qolMags;
   }
 
   step() {
