@@ -11,6 +11,7 @@ import { PersonaArm } from './arm';
 import { DefaultInternalSettings, DefaultSettings, PersonaSettings, PersonaInternalSettings } from './persona.settings';
 import { createStates, States, PersonaListeningState, StateRunners, StateRunnerArgs, ContinualStates, ContinualStatesTypes } from './persona.states';
 import { getRingMoodModifiers, getMoodModifiers, MoodIntensityMap } from './persona.mood';
+import { Domains } from "./domains";
 import { PersonaViewState } from './persona.view';
 
 import { AnalyticsManager, LoggerAnalyticsManager } from './analytics';
@@ -208,9 +209,8 @@ export class PersonaCore implements IPersonaCore {
 
     if (view.login) {
       this._arms = [];
-      const domains: any[] = ["physical","sleep","mood","cognition","leisure","relationships","spiritual","money","home","self-esteem","independence","identity"];
       for (let i = 1; i <= 12; i++) {
-        let domain: string = domains[i-1];
+        let domain: string = Domains[i-1].toLowerCase();
         const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
