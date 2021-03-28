@@ -159,6 +159,9 @@ export class MasloPersonaExpo extends React.Component<Props, CompState> {
         reaction(_ => this.props.context.view, v => {
           this._updatePersonViewState(v);
         }),
+        reaction(_ => this.props.context.qolMags, qolMags => {
+          this._persona.updateDomainMags(qolMags);
+        }),
       ];
       this._contextObserverDispose = () => {
         disposers.forEach(d => d());

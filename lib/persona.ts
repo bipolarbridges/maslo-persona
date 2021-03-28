@@ -225,6 +225,10 @@ export class PersonaCore implements IPersonaCore {
     }
   }
 
+  updateDomainMags(qolMags) {
+    logger.log("updating mags");
+  }
+
   step() {
     const { radius } = this._settings;
     const {

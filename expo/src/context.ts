@@ -11,6 +11,7 @@ export type CurrentPersonaSettings = Readonly<{ radius: number, resultScale: num
 export interface IPersonaContext {
   state: States;
   view: PersonaViewState;
+  qolMags: { [dom: string]: number };
 
   currentSettings?: CurrentPersonaSettings;
 }
