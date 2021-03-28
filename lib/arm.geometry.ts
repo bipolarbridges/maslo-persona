@@ -23,7 +23,6 @@ export class ArmGeometry {
   }
 
   updateMag(newMag: number, oldMag: number) {
-    logger.log("old", oldMag, "new", newMag);
     const vertices: THREE.Vector3[] = this.geoData.vertices;
     for (let i = 0; i < vertices.length; i++) {
        let newYValue = 0;
