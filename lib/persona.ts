@@ -211,7 +211,6 @@ export class PersonaCore implements IPersonaCore {
       this._arms = [];
       for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1].toLowerCase();
-        logger.log(domain + ":", view.armMagnitudes[domain]);
         const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
@@ -227,18 +226,18 @@ export class PersonaCore implements IPersonaCore {
   }
 
   updateDomainMags(qolMags: any) {
-    if (this._qolMags === null) {
+    if (this._qolMags === null && qolMags !== null) {
       for (let arm of this._arms) {
-        arm.updateMag(qolMags[Domains[0].toLowerCase()]);
+        arm.updateMag(qolMags[Domains[0]]);
+      }
+    } else if (qolMags !== null) {
+      for (let i = 1; i <= Domains.length; i++) {
+        let domain: string = Domains[i-1];
+        if (this._qolMags[domain] !== qolMags[domain]) {
+          this._arms[i-1].updateMag(qolMags[domain]);
+        }
       }
     }
-
-    // for (let i = 1; i <= Domains.length; i++) {
-    //   let domain: string = Domains[i-1].toLowerCase();
-    //   if (this._qolMags.domain !== qolMags.domain) {
-    //     this._arms[i].updateMag(qolMags.domain);
-    //   }
-    // }
     this._qolMags = qolMags;
   }
 

@@ -23,13 +23,11 @@ export class ArmGeometry {
   }
 
   updateMag(newMag: number, oldMag: number) {
-    logger.log("new mag:", newMag, "old mag:", oldMag);
+    logger.log("old", oldMag, "new", newMag);
     const vertices: THREE.Vector3[] = this.geoData.vertices;
-    logger.log(vertices);
     for (let i = 0; i < vertices.length; i++) {
        let newYValue = 0;
        if (vertices[i].y !== 0) { newYValue = (vertices[i].y / oldMag) * newMag; }
-    //   logger.log("STEP3: updating vertex with this value", newYValue);
       vertices[i].setY(newYValue);
       this.geoData.verticesNeedUpdate = true;
     }
