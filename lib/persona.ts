@@ -211,7 +211,6 @@ export class PersonaCore implements IPersonaCore {
       this._arms = [];
       for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1].toLowerCase();
-        logger.log(domain + ":", view.armMagnitudes[domain]);
         const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
