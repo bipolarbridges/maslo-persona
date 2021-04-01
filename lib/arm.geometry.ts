@@ -1,3 +1,4 @@
+import { start } from 'repl';
 import * as THREE from 'three';
 import { LoggerAnalyticsManager } from './analytics';
 import { PersonaArmData } from './arm.data';
@@ -24,9 +25,15 @@ export class ArmGeometry {
 
   updateMag(newMag: number, oldMag: number) {
     const vertices: THREE.Vector3[] = this.geoData.vertices;
+    const tipStartIndex: number = 13;
+    const tipEndIndex: number = 28;
     for (let i = 0; i < vertices.length; i++) {
-       let newYValue = 0;
-       if (vertices[i].y !== 0) { newYValue = (vertices[i].y / oldMag) * newMag; }
+      let newYValue: number = 0;
+      if (i >= tipStartIndex && i <= tipEndIndex) {
+        newYValue = (vertices[i].y + ((2 * (1 - oldMag)))) - (2 * (1 - newMag));
+      } else {
+        if (vertices[i].y !== 0) { newYValue = (vertices[i].y / oldMag) * newMag; }
+      }
       vertices[i].setY(newYValue);
       this.geoData.verticesNeedUpdate = true;
     }
