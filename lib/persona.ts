@@ -13,6 +13,7 @@ import { createStates, States, PersonaListeningState, StateRunners, StateRunnerA
 import { getRingMoodModifiers, getMoodModifiers, MoodIntensityMap } from './persona.mood';
 import { Domains } from "./domains";
 import { PersonaViewState } from './persona.view';
+import { PersonaArmState } from './persona.armMags';
 
 import { AnalyticsManager, LoggerAnalyticsManager } from './analytics';
 import { IAudioPlayer, PersonCoreAnimationData, IPersonaCore, IPersonaRing } from './abstractions';
@@ -53,7 +54,7 @@ export class PersonaCore implements IPersonaCore {
   };
 
   private readonly _view: PersonaViewState = PersonaViewState.createEmptyViewState();
-  private _qolMags: { [dom: string]: number } = null;
+  private _qolMags: PersonaArmState = PersonaArmState.createEmptyArmState();
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
@@ -106,6 +107,16 @@ export class PersonaCore implements IPersonaCore {
       this._group.add(ring.theGroup);
 
       this._rings.push(ring);
+
+      // todo: create arms here
+      this._arms = [];
+      for (let i = 1; i <= Domains.length; i++) {
+        let domain: string = Domains[i-1].toLowerCase();
+        const arm = new PersonaArm(i, this._settings, this._qolMags[domain]);
+        this._armsGroup.add(arm.theGroup);
+        this._arms.push(arm);
+      }
+      this._group.add(this._armsGroup);
 
       // get color
       {
@@ -226,18 +237,18 @@ export class PersonaCore implements IPersonaCore {
   }
 
   updateDomainMags(qolMags: any) {
-    if (this._qolMags === null && qolMags !== null) {
-      for (let arm of this._arms) {
-        arm.updateMag(qolMags[Domains[0]]);
-      }
-    } else if (qolMags !== null) {
+    // if (this._qolMags === null && qolMags !== null) {
+    //   for (let arm of this._arms) {
+    //     arm.updateMag(qolMags[Domains[0]]);
+    //   }
+    // } else if (qolMags !== null) {
       for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1];
         if (this._qolMags[domain] !== qolMags[domain]) {
           this._arms[i-1].updateMag(qolMags[domain]);
         }
       }
-    }
+    //}
     this._qolMags = qolMags;
   }
 
