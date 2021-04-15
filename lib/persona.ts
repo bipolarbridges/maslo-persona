@@ -218,22 +218,22 @@ export class PersonaCore implements IPersonaCore {
     const pos = v.position || { x: 0, y: 0 };
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
 
-    if (view.login) {
-      this._arms = [];
-      for (let i = 1; i <= Domains.length; i++) {
-        let domain: string = Domains[i-1].toLowerCase();
-        const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
-        this._armsGroup.add(arm.theGroup);
-        this._arms.push(arm);
-      }
-      this._group.add(this._armsGroup);
-      this.login = true;
-      this.logout = false;
-    } else if (view.logout) {
-      this._group.remove(this._armsGroup);
-      this.logout = true;
-      this.login = false;
-    }
+    // if (view.login) {
+    //   this._arms = [];
+    //   for (let i = 1; i <= Domains.length; i++) {
+    //     let domain: string = Domains[i-1].toLowerCase();
+    //     const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
+    //     this._armsGroup.add(arm.theGroup);
+    //     this._arms.push(arm);
+    //   }
+    //   this._group.add(this._armsGroup);
+    //   this.login = true;
+    //   this.logout = false;
+    // } else if (view.logout) {
+    //   this._group.remove(this._armsGroup);
+    //   this.logout = true;
+    //   this.login = false;
+    // }
   }
 
   updateDomainMags(qolMags: any) {
