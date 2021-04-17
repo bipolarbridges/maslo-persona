@@ -72,9 +72,6 @@ export class PersonaCore implements IPersonaCore {
 
   private colorHSL: Chroma.Color;
 
-  private login: boolean = false;
-  private logout: boolean = true;
-
   constructor(scene: THREE.Scene, settings: Partial<PersonaSettings> = null) {
     this._settings = {
       ...DefaultSettings,
@@ -108,7 +105,6 @@ export class PersonaCore implements IPersonaCore {
 
       this._rings.push(ring);
 
-      // todo: create arms here
       this._arms = [];
       for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1].toLowerCase();
@@ -154,6 +150,7 @@ export class PersonaCore implements IPersonaCore {
 
   /** Returns current Persona state. Observable via `mobx's autorun`. */
   get state() { return this._state; }
+  get mood() { return this._mood; }
 
   get rotation() { return this._data.rotation; }
   set rotation(value) { this._data.rotation = value; }
@@ -217,38 +214,15 @@ export class PersonaCore implements IPersonaCore {
     GSAP.killTweensOf(this._view.position);
     const pos = v.position || { x: 0, y: 0 };
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
-
-    // if (view.login) {
-    //   this._arms = [];
-    //   for (let i = 1; i <= Domains.length; i++) {
-    //     let domain: string = Domains[i-1].toLowerCase();
-    //     const arm = new PersonaArm(i, this._settings, view.armMagnitudes[domain]);
-    //     this._armsGroup.add(arm.theGroup);
-    //     this._arms.push(arm);
-    //   }
-    //   this._group.add(this._armsGroup);
-    //   this.login = true;
-    //   this.logout = false;
-    // } else if (view.logout) {
-    //   this._group.remove(this._armsGroup);
-    //   this.logout = true;
-    //   this.login = false;
-    // }
   }
 
   updateDomainMags(qolMags: any) {
-    // if (this._qolMags === null && qolMags !== null) {
-    //   for (let arm of this._arms) {
-    //     arm.updateMag(qolMags[Domains[0]]);
-    //   }
-    // } else if (qolMags !== null) {
-      for (let i = 1; i <= Domains.length; i++) {
-        let domain: string = Domains[i-1];
-        if (this._qolMags[domain] !== qolMags[domain]) {
-          this._arms[i-1].updateMag(qolMags[domain]);
-        }
+    for (let i = 1; i <= Domains.length; i++) {
+      let domain: string = Domains[i-1];
+      if (this._qolMags[domain] !== qolMags[domain]) {
+        this._arms[i-1].updateMag(qolMags[domain]);
       }
-    //}
+    }
     this._qolMags = qolMags;
   }
 
