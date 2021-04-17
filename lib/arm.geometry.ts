@@ -1,9 +1,5 @@
-import { start } from 'repl';
 import * as THREE from 'three';
-import { LoggerAnalyticsManager } from './analytics';
 import { PersonaArmData } from './arm.data';
-import { createLogger } from './utils/logger';
-const logger = createLogger();
 
 export class ArmGeometry {
 
@@ -39,6 +35,4 @@ export class ArmGeometry {
       this.geoData.verticesNeedUpdate = true;
     }
   }
-
-  step(time: number) {}
 }

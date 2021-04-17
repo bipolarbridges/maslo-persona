@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-import { Color as ChromaColor } from 'chroma-js';
 import { PersonaConfig } from './persona.settings';
 
 export class PersonaArmData {

@@ -22,11 +22,6 @@ export type PersonaViewState<TPosType = number> = {
   },
 
   debugName?: string,
-  login?: boolean,
-  logout?: boolean,
-  armMagnitudes?: {
-    [dom: string]: number
-  }
 };
 
 export namespace PersonaViewState {

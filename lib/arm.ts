@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { PersonaArmData } from './arm.data';
 import { ArmGeometry } from './arm.geometry';
-// import { ArmMaterial } from './arm.material'; currently not using this
 import { PersonaConfig } from './persona.settings';
 import { IPersonaArm } from './abstractions';
 
@@ -36,9 +35,5 @@ export class PersonaArm implements IPersonaArm {
   updateMag(newMag: number) {
     this._geometry.updateMag(newMag, this._mag);
     this._mag = newMag;
-  }
-
-  step(time: number) {
-    this._geometry.step(time);
   }
 }
