@@ -295,13 +295,6 @@ export class PersonaCore implements IPersonaCore {
       const prevRing = (i > 0 && this._rings[i - 1]) || null;
       ring.step(this._data.time, prevRing);
     }
-
-    if (this.login && !this.logout) {
-      for (let i = 0; i < this._arms.length; i++) {
-        const arm = this._arms[i];
-        arm.step(this._data.time);
-      }
-    }
   }
 
   setState(state: States, autoContinual = false) {
