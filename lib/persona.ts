@@ -13,7 +13,7 @@ import { createStates, States, PersonaListeningState, StateRunners, StateRunnerA
 import { getRingMoodModifiers, getMoodModifiers, MoodIntensityMap } from './persona.mood';
 import { Domains } from "./domains";
 import { PersonaViewState } from './persona.view';
-import { PersonaArmState } from './persona.armMags';
+import { PersonaArmState } from './persona.armMagnitudes';
 
 import { AnalyticsManager, LoggerAnalyticsManager } from './analytics';
 import { IAudioPlayer, PersonCoreAnimationData, IPersonaCore, IPersonaRing } from './abstractions';
@@ -54,7 +54,7 @@ export class PersonaCore implements IPersonaCore {
   };
 
   private readonly _view: PersonaViewState = PersonaViewState.createEmptyViewState();
-  private _qolMags: PersonaArmState = PersonaArmState.createEmptyArmState();
+  private _qolArmMagnitudes: PersonaArmState = PersonaArmState.createEmptyArmState();
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
@@ -108,7 +108,7 @@ export class PersonaCore implements IPersonaCore {
       this._arms = [];
       for (let i = 1; i <= Domains.length; i++) {
         let domain: string = Domains[i-1].toLowerCase();
-        const arm = new PersonaArm(i, this._settings, this._qolMags[domain]);
+        const arm = new PersonaArm(i, this._settings, this._qolArmMagnitudes[domain]);
         this._armsGroup.add(arm.theGroup);
         this._arms.push(arm);
       }
@@ -216,14 +216,14 @@ export class PersonaCore implements IPersonaCore {
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
   }
 
-  updateDomainMags(qolMags: any) {
+  updateDomainMagnitudes(qolArmMagnitudes: any) {
     for (let i = 1; i <= Domains.length; i++) {
       let domain: string = Domains[i-1];
-      if (this._qolMags[domain] !== qolMags[domain]) {
-        this._arms[i-1].updateMag(qolMags[domain]);
+      if (this._qolArmMagnitudes[domain] !== qolArmMagnitudes[domain]) {
+        this._arms[i-1].updateMag(qolArmMagnitudes[domain]);
       }
     }
-    this._qolMags = qolMags;
+    this._qolArmMagnitudes = qolArmMagnitudes;
   }
 
   step() {

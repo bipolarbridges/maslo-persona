@@ -13,7 +13,7 @@ export type CurrentPersonaSettings = Readonly<{ radius: number, resultScale: num
 export interface IPersonaContext {
   state: States;
   view: PersonaViewState;
-  qolMags: PersonaArmState;
+  qolArmMagnitudes: PersonaArmState;
 
   currentSettings?: CurrentPersonaSettings;
 }
