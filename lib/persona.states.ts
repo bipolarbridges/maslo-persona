@@ -284,8 +284,8 @@ export function createStates(persona: IPersonaCore): StateRunners {
       0);
 
       timeline.add(new TimelineMax()
-        .to(data, timeIn, { rotation: 1.5 + Math.random(), ease: Power3.easeOut })
-        .to(data, timeOut, { rotation: 3, delay: delayInOut, ease: Power3.easeOut })
+        .to(data, timeIn, { ease: Power3.easeOut })
+        .to(data, timeOut, { delay: delayInOut, ease: Power3.easeOut })
         .add(() => { data.rotation = 0; }),
       0);
 
@@ -358,8 +358,8 @@ export function createStates(persona: IPersonaCore): StateRunners {
       }
 
       timeline.add(new TimelineMax()
-        .to(data, 2.4, { rotation: -1, ease: Power3.easeOut })
-        .to(data, 0.8, { rotation: 0, ease: Power3.easeOut })
+        .to(data, 2.4, { ease: Power3.easeOut })
+        .to(data, 0.8, { ease: Power3.easeOut })
         .add(() => { data.rotation = 0; }),
       0);
 

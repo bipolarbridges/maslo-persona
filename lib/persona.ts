@@ -7,10 +7,13 @@ import GSAP from 'gsap';
 import { createLogger } from './utils/logger';
 
 import { PersonaRing } from './ring';
+import { PersonaArm } from './arm';
 import { DefaultInternalSettings, DefaultSettings, PersonaSettings, PersonaInternalSettings } from './persona.settings';
 import { createStates, States, PersonaListeningState, StateRunners, StateRunnerArgs, ContinualStates, ContinualStatesTypes } from './persona.states';
 import { getRingMoodModifiers, getMoodModifiers, MoodIntensityMap } from './persona.mood';
+import { Domains } from "./domains";
 import { PersonaViewState } from './persona.view';
+import { PersonaArmState } from './persona.armMagnitudes';
 
 import { AnalyticsManager, LoggerAnalyticsManager } from './analytics';
 import { IAudioPlayer, PersonCoreAnimationData, IPersonaCore, IPersonaRing } from './abstractions';
@@ -51,11 +54,14 @@ export class PersonaCore implements IPersonaCore {
   };
 
   private readonly _view: PersonaViewState = PersonaViewState.createEmptyViewState();
+  private _qolArmMagnitudes: PersonaArmState = PersonaArmState.createEmptyArmState();
 
   private readonly _globalContainer = new THREE.Object3D();
   private readonly _group = new THREE.Object3D();
+  private readonly _armsGroup = new THREE.Object3D();
 
   private readonly _rings: PersonaRing[];
+  private readonly _arms: PersonaArm[];
   private readonly _states: StateRunners;
 
   private _moodDirty = false;
@@ -98,6 +104,15 @@ export class PersonaCore implements IPersonaCore {
       this._group.add(ring.theGroup);
 
       this._rings.push(ring);
+
+      this._arms = [];
+      for (let i = 1; i <= Domains.length; i++) {
+        let domain: string = Domains[i-1].toLowerCase();
+        const arm = new PersonaArm(i, this._settings, this._qolArmMagnitudes[domain]);
+        this._armsGroup.add(arm.theGroup);
+        this._arms.push(arm);
+      }
+      this._group.add(this._armsGroup);
 
       // get color
       {
@@ -199,6 +214,16 @@ export class PersonaCore implements IPersonaCore {
     GSAP.killTweensOf(this._view.position);
     const pos = v.position || { x: 0, y: 0 };
     GSAP.to(this._view.position, { x: pos.x, y: pos.y, duration, ease, delay });
+  }
+
+  updateDomainMagnitudes(qolArmMagnitudes: any) {
+    for (let i = 1; i <= Domains.length; i++) {
+      let domain: string = Domains[i-1];
+      if (this._qolArmMagnitudes[domain] !== qolArmMagnitudes[domain]) {
+        this._arms[i-1].updateMag(qolArmMagnitudes[domain]);
+      }
+    }
+    this._qolArmMagnitudes = qolArmMagnitudes;
   }
 
   step() {
